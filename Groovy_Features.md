@@ -2,6 +2,13 @@
 
 ####1. Groovy bean
 ####2. Inheriting constructors
+####3. Adding the cloning functionality to Groovy Beans
+####4. Defining code as data in Groovy
+####5. Defining data structures as code in Groovy
+####6. Implementing multiple inheritance in Groovy
+####7. Adding a functionality to the existing Java/Groovy classes
+####8. Defining type-checking rules for dynamic code
+####9. Adding automatic logging to Groovy classes
 
 
 ####1. Groovy bean
@@ -126,3 +133,14 @@ includes / excludes
 ```
 
 ####2. Inheriting constructors 
+```
+import groovy.transform.InheritConstructors
+@InheritConstructors
+class BusinessException extends Exception { }
+println new BusinessException('hello').message == 'hello'
+def b1 = new BusinessException('missing resource')
+def b2 = new BusinessException('catastrophic failure', b1)
+println b2.cause.message == 'missing resource'
+```
+
+####3. Adding the cloning functionality to Groovy Beans
