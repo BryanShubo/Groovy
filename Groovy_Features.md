@@ -91,10 +91,16 @@ students.add copyOfC2
 assert users.size() == 2
 ```
 
-#####1.4 @tUPLEcONSTRUCTOR
+#####1.4 @TupleConstructor
+
 The @TupleConstructor annotation deals with Groovy Bean constructors and creates constructors that do not require named parameters (Java-style constructors). For each property in the bean, a parameter with a default value is created in the constructor in the same order as the properties are declared. As the constructor is using default values,  we don't have to set all the properties when we build the bean.
 
 ```
+//includeSuperProperties
+//includeSuperFields
+//callSuper=true
+<!--If the class annotated with @TupleConstructor extends another class and we wish to include the properties or fields of the superclass, we can use the attributes includeSuperProperties and includeSuperFields. Finally, the callSuper=trueattribute instructs the annotation to create a code in the constructor to call the super constructor of the superclass with the properties.-->
+
 import groovy.transform.TupleConstructor
 @TupleConstructor
 class Student {  
@@ -109,3 +115,13 @@ assert s1.name == 'Mike'
 
 assert !s2.favouriteSubjects
 ```
+
+#####1.5 @Canonical
+
+The @Canonical annotation instructs the compiler to execute an AST transformation which adds positional constructors, hashCode, equals, and a pretty print toString to a class.
+
+```
+includes / excludes
+```
+
+####2. Inheriting constructors 
