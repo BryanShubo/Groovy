@@ -55,8 +55,57 @@ String name, lastName
 Long id
 }
 def student = new Student(lastName: 'Hogan', id: 200, name: 'Mark')
-
 student.name = 'John'
+<!--Executing the previous code yields the following exception:groovy.lang.ReadOnlyPropertyException:
+Cannot set read-only property: namefor class: Customer-->
 
-<!--Executing the previous code yields the following exception:groovy.lang.ReadOnlyPropertyException:Cannot set read-only property: namefor class: Customer-->
+Note: The @Immutable annotation makes the class final, all the fields become final, and also the default equals, hashCode, and toString methods are provided based on the property values
+```
+
+#####1.2 ToString
+
+Add a toString method to  a bean
+```
+@ToString
+@ToString(includeNames = true)
+@ToString(includeNames = ture, excludes = 'lastName,age')
+```
+
+#####1.3 @EqualsAndHashCode
+```
+import groovy.transform.EqualsAndHashCode
+@EqualsAndHashCode
+class Student {  
+String name  
+String lastName
+}
+def s1 = new Student(name: 'John', lastName: 'Ross')
+def s2 = new Student(name: 'Rob', lastName: 'Bell')
+assert !s1.equals(s2)
+def copyOfS2 = new Student(name: 'Rob', lastName: 'Bell')
+Set students = [:] as Set
+students.add c1
+students.add c2
+students.add copyOfC2
+
+assert users.size() == 2
+```
+
+#####1.4 @tUPLEcONSTRUCTOR
+The @TupleConstructor annotation deals with Groovy Bean constructors and creates constructors that do not require named parameters (Java-style constructors). For each property in the bean, a parameter with a default value is created in the constructor in the same order as the properties are declared. As the constructor is using default values,  we don't have to set all the properties when we build the bean.
+
+```
+import groovy.transform.TupleConstructor
+@TupleConstructor
+class Student {  
+String name  
+String lastName  
+Long age  
+List favouriteSubjects
+}
+def s1 = new Student('Mike','Wells',20,['math','phisics'])
+def s2 = new Student('Joe','Garland',22)
+assert s1.name == 'Mike'
+
+assert !s2.favouriteSubjects
 ```
