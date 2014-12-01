@@ -1,6 +1,7 @@
 
 
 ####1. Groovy bean
+####2. Inheriting constructors
 
 
 ####1. Groovy bean
