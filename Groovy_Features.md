@@ -172,7 +172,9 @@ The snippet in step 2 shows how easy is to clone an object without having to imp
 If a class already implements Serializable, the @AutoClone annotation can be configured to use the Serialization style. This feature performs a deep copy automatically, attempting to copy the entire tree of objects including array and list elements. The AutoCloneStyle.SERIALIZATION style has some limitations; it is generally slower  and it doesn't support fields marked with final.
 
 
-#####4. Closures
+####4. Closures
+
+#####4.1 Definition
 ```
 { -> }
 ```
@@ -182,3 +184,80 @@ If a class already implements Serializable, the @AutoClone annotation can be con
 * However, a closure is also a method—a method with no associated class; 
 * Therefore, it may have arguments and can return a value (yes, it can also return a closure). 
 * A closure always returns the value of the last statement in the body; the return keyword is not needed. 
+
+```
+def doubling = { arg1 -> println arg1 * 2 }
+        [1,2,3,4].each (doubling)
+        
+// result
+2
+4
+6
+8
+```
+
+```
+//The it keyword is an implicit variable that works on closures, accepting a single argument.  
+[1,2,3].each{println it}
+[1,2,3].each{element -> println element}
+```
+
+#####4.2 Example
+```
+class ExpensiveResource {
+def open() {println 'opened!' }    
+def writeData(data) {println "data written! $data" }    
+def close(){println 'closed!'}
+}
+
+def e = new ExpensiveResource()
+try {  
+e.open()  
+println e.data
+} 
+finally {  e.close()}
+```
+
+```
+// Use closure
+def safeResource(Closure closure) {  
+def resource = new ExpensiveResource()  
+try {    resource.open()    closure(resource)  } 
+finally {    resource?.close()  }
+}
+
+safeResource { it -> it.writeData('hello world!') }
+```
+
+```
+For instance, the method file.eachLineMatch(pattern) { ... } opens a file, iterates over each line trying to find the lines that match the specified pattern, and then invokes some code passed in form of a closure for the matching line(s), if any, before eventually closing the file.
+```
+
+#####4.3 curry
+
+The limitation of the curry method is that arguments are bound from left to right in the argument list. In other words, in two arguments-closures, only the left argument can be used with the curry function.
+```
+def multiply = {x, y -> x * y}
+println(multiply(3,5)) // 15
+def c4 = multiply.curry(4)
+println(c4(25)) //100
+```
+
+```
+def filterList = { filter, list -> list.findAll(filter) }
+def even = { it % 2 == 0 }
+def odd = { !even(it) }
+
+def evenFilterList = filterList.curry(even)
+def oddFilterList = filterList.curry(odd)
+
+println evenFilterList(0..8) // 0,2,4,6,8
+println oddFilterList(0..8) // 1,3,5,7
+```
+
+
+
+
+
+
+
