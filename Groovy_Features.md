@@ -229,9 +229,8 @@ finally {    resource?.close()  }
 safeResource { it -> it.writeData('hello world!') }
 ```
 
-```
 For instance, the method file.eachLineMatch(pattern) { ... } opens a file, iterates over each line trying to find the lines that match the specified pattern, and then invokes some code passed in form of a closure for the matching line(s), if any, before eventually closing the file.
-```
+
 
 #####4.3 curry
 
@@ -255,7 +254,7 @@ println evenFilterList(0..8) // 0,2,4,6,8
 println oddFilterList(0..8) // 1,3,5,7
 ```
 
-
+####5. Defining data structures as code in Groovy
 
 
 
