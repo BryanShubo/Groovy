@@ -316,3 +316,6 @@ def groovy2cookbook = new Book(
 ```
 
 Note: It's hard to vote for any of these approaches and decide which one would be better to handle your multiple inheritance needs. The @Mixin definition is less verbose and automatically creates instances of all mixed-in classes, but on the other hand, managing the state of those instances may not be so obvious. The @Delegate transformation has a more verbose definition due to an additional variable declaration, but it also gives your target class direct access and control over the way your mixed-in state is created.
+
+
+####7. Adding a functionality to the existing Java/Groovy classes
