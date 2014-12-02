@@ -255,8 +255,64 @@ println oddFilterList(0..8) // 1,3,5,7
 ```
 
 ####5. Defining data structures as code in Groovy
+```
+* MarkupBuilder
+* DOMBuilder
+* JsonBuilder
+* SwingBuilder
+* ObjectGraphBuilder
 
+// java
+Teacher t = new Teacher('Steve')
+Student s1 = new Student('John')
+Student s2 = new Student('Richard')
+t.addStudent(s1)
+t.addStudent(s2)
 
+// Groovy
+teacher ('Jones') { 
+student ('Bob')  
+student ('Sue')
+}
+```
 
+####6. Implementing multiple inheritance in Groovy
 
+####6.1 @Mixin -- runtime binding
 
+The @Mixin annotation that we placed in our source code informs Groovy to perform a transformation of the target class and add behavior (methods) of mixed-in classes into that. 
+
+The annotation accepts a single class name or an array of class names. 
+
+Mixing in behavior is done exclusively at runtime, since (as we already noted) under the hood, JVM does not allow multiple parent classes. This is also the reason that the instanceof operator will not work for mixed-in classes. For example, you can't check that groovyMag is an instance of the PeriodicPulication class. But you can still use the groovyMag and other variables to call the features of the mixed-in classes at runtime.
+
+In the test class, we used the Groovy Bean constructor syntax to refer to the fields that are available in the base class, but the fields we mixed-in from different sources can only be accessed in a dynamic way. In fact, they are not just fields but also a pair of getter and setter automatically defined by Groovy for all the bean classes. So, we really mix the behavior (that is, methods) in, not the state of the class. That's also the reason we used another Groovy feature here—the with method. This method is defined for all objects in Groovy; it takes a closure as a parameter, and the object itself is passed to the closure's context. That's why you can easily refer to an object's methods and properties in a short form. In fact, you could have used the withmethod to define all the properties of our object:
+
+```
+def groovyMag = new OnlineMagazine().with {
+                                           id = 'GRMAG'
+                                           title = 'GroovyMag'
+                                           url = new URL('http://grailsmag.com/')
+                                           issuePeriod = monthly
+                                           it               
+                                           }
+```
+
+#####6.2 @Delegate -- compile time binding
+
+```
+class Book extends Publication {
+    @Delegate  
+    PrintedPublication printedFeatures = new PrintedPublication()
+    }
+```
+
+```
+def groovy2cookbook = new Book(
+                              id: 'GR2CBOOK',
+                              title: 'Groovy 2 Cookbook',
+                              pageCount: 384   
+                              )
+```
+
+Note: It's hard to vote for any of these approaches and decide which one would be better to handle your multiple inheritance needs. The @Mixin definition is less verbose and automatically creates instances of all mixed-in classes, but on the other hand, managing the state of those instances may not be so obvious. The @Delegate transformation has a more verbose definition due to an additional variable declaration, but it also gives your target class direct access and control over the way your mixed-in state is created.
