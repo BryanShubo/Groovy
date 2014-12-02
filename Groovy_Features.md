@@ -3,7 +3,7 @@
 ####1. Groovy bean
 ####2. Inheriting constructors
 ####3. Adding the cloning functionality to Groovy Beans
-####4. Defining code as data in Groovy
+####4. Closures
 ####5. Defining data structures as code in Groovy
 ####6. Implementing multiple inheritance in Groovy
 ####7. Adding a functionality to the existing Java/Groovy classes
@@ -170,3 +170,6 @@ The snippet in step 2 shows how easy is to clone an object without having to imp
 @AutoClone(style=AutoCloneStyle.COPY_CONSTRUCTOR)
 ```
 If a class already implements Serializable, the @AutoClone annotation can be configured to use the Serialization style. This feature performs a deep copy automatically, attempting to copy the entire tree of objects including array and list elements. The AutoCloneStyle.SERIALIZATION style has some limitations; it is generally slower  and it doesn't support fields marked with final.
+
+
+#####4. Closures
