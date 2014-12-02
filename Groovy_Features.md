@@ -144,3 +144,29 @@ println b2.cause.message == 'missing resource'
 ```
 
 ####3. Adding the cloning functionality to Groovy Beans
+
+```
+import groovy.transform.AutoClone
+@AutoClone   
+class Vehicle {
+String brand  
+String type  
+Long wheelsNumber
+}
+```
+```
+def v1 = new Vehicle()
+v1.brand = 'Ferrari'
+v1.type = 'Testarossa'
+v1.wheelsNumber = 4
+def v2 = v1.clone()
+
+assert v1 instanceof Cloneable
+assert v1.brand == v2.brand
+```
+The snippet in step 2 shows how easy is to clone an object without having to implement any interface. The default cloning strategy implemented by the annotation will call super.clonebefore calling clone on each Cloneable property of the class. If a field or property is not cloneable, it is simply copied in a bitwise fashion. If some properties don't support cloning, a CloneNotSupportedException is thrown.
+
+```
+@AutoClone(style=AutoCloneStyle.COPY_CONSTRUCTOR)
+```
+If a class already implements Serializable, the @AutoClone annotation can be configured to use the Serialization style. This feature performs a deep copy automatically, attempting to copy the entire tree of objects including array and list elements. The AutoCloneStyle.SERIALIZATION style has some limitations; it is generally slower  and it doesn't support fields marked with final.
