@@ -176,9 +176,9 @@ If a class already implements Serializable, the @AutoClone annotation can be con
 ```
 { -> }
 ```
-*The previous snippet is actually a closure without body. 
-*It is, in fact, an object of type groovy.lang.Closure. 
-*As with every other object, a closure can be passed to other methods or even to other closures. 
-*However, a closure is also a method—a method with no associated class; 
-*therefore, it may have arguments and can return a value (yes, it can also return a closure). 
-*A closure always returns the value of the last statement in the body; the return keyword is not needed. 
+* The previous snippet is actually a closure without body. 
+* It is, in fact, an object of type groovy.lang.Closure. 
+* As with every other object, a closure can be passed to other methods or even to other closures. 
+* However, a closure is also a method—a method with no associated class; 
+* Therefore, it may have arguments and can return a value (yes, it can also return a closure). 
+* A closure always returns the value of the last statement in the body; the return keyword is not needed. 
