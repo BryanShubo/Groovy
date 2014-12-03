@@ -12,7 +12,6 @@
 
 
 ####1. Groovy bean
-
 ```
 class Student {  
 Long id  
