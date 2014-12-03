@@ -5,3 +5,6 @@
 * Converting JSON message to XML
 * Converting JSON message to Groovy Bean
 * Using JSON to configure your scripts
+
+
+####1. Parsing JSON messages with JsonSlurper
