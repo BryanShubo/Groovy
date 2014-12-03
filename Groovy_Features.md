@@ -318,3 +318,25 @@ Note: It's hard to vote for any of these approaches and decide which one would b
 
 
 ####7. Adding a functionality to the existing Java/Groovy classes
+
+
+####8. Defining type-checking rules for dynamic code
+
+In this recipe, we will present how Groovy can be instructed to apply static typing checks to code elements to warn you about potential violations at compiletime; that is, before code  is executed
+
+* 1. Easier to spot programming mistakes (for example, preventing assigning a Boolean to an integer).
+* 2. Self-documenting code thanks to type signatures.
+* 3. The compiler has more opportunities to optimize the code (for example, replacing a virtual call with a direct one when the receiver's type is statically known).
+* 4. More efficient development tools (for example, autocompletion of members of  a class).
+
+
+Defenders of dynamic typing return fire by claiming that static typing is inflexible and has a negative impact on prototyping systems with volatile or unknown requirements. Furthermore, writing code in dynamic languages requires more discipline than writing in statically typed languages. This is often translated into a greater awareness for testing—and unit testing in particular—among developers who decide to produce code with dynamic languages.
+
+
+@groovy.transform.TypeChecked, forcing complier to enable static type-checking.
+
+@TypeChecked, if we place it on a method, the type-checking is performed only on the members of the target method, including closures.
+
+####9. Adding automatic logging to Groovy classes
+
+@groovy.util.logging.Log
